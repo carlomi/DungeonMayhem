@@ -2,11 +2,12 @@ package Player;
 
 import Cartas.Carta;
 import Observer.Observer;
-
+import Mediator.GameMediator;
+import Main.Game;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Player implements Observer {
+public abstract class Player implements Observer {
     private String name;
     private Personaje personaje;
     private int health;
@@ -16,16 +17,26 @@ public class Player implements Observer {
     private List<Carta> jugada;
     private List<Carta> cartasActivas;
     private List<Carta> descartadas;
+    private GameMediator mediator;
+    private Game game;
 
-
-    public Player(String name) {
+    public Player(String name, GameMediator mediator, Game game) {
         this.name = name;
+        this.mediator = mediator;
+        this.game = game;
         this.health = 10;
+        this.mazo = new ArrayList<>();
+        this.mano = new ArrayList<>();
+        this.jugada = new ArrayList<>();
+        this.cartasActivas = new ArrayList<>();
+        this.descartadas = new ArrayList<>();
     }
 
-    public Player(String name, Personaje personaje) {
+    public Player(String name, Personaje personaje, GameMediator mediator, Game game) {
         this.name = name;
         this.personaje = personaje;
+        this.mediator = mediator;
+        this.game = game;
         this.health = 10;
         this.mazo = personaje.getMazo();
         this.mano = new ArrayList<>();
@@ -33,8 +44,7 @@ public class Player implements Observer {
         this.descartadas = new ArrayList<>();
     }
 
-
-    //Metodos
+    // Métodos
     public void imprimirMazo(){
         for (Carta c : mazo) {
             System.out.println(c.getNombre());
@@ -63,7 +73,7 @@ public class Player implements Observer {
         this.health += corazones;
     }
 
-    //Getters and Setters
+    // Getters y Setters
     public String getName() {
         return name;
     }
@@ -136,18 +146,33 @@ public class Player implements Observer {
         this.escudos = escudos;
     }
 
-    //METODOS NUEVOS
+    public GameMediator getMediator() {
+        return mediator;
+    }
+
+    public void setMediator(GameMediator mediator) {
+        this.mediator = mediator;
+    }
+
+    public Game getGame() {
+        return game;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
+    }
+
     public void tomarCarta(int cartasExtra) {
         for (int i = 0; i < cartasExtra; i++) {
-            mano.add(mazo.getFirst());
-            mazo.remove(mazo.getFirst());
+            if (!mazo.isEmpty()) {
+                mano.add(mazo.get(0));
+                mazo.remove(0);
+            }
         }
     }
 
-    public boolean hasShield (){
-        if (escudos > 0)
-            return true;
-        else return false;
+    public boolean hasShield() {
+        return escudos > 0;
     }
 
     @Override
@@ -156,4 +181,9 @@ public class Player implements Observer {
             tomarCarta(2);
         }
     }
+
+    // Métodos abstractos
+    public abstract void drawCard();
+    public abstract void playCard();
+    public abstract void chooseCharacter();
 }

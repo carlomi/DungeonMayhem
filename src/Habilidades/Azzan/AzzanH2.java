@@ -1,24 +1,22 @@
 package Habilidades.Azzan;
 
-import Cartas.Carta;
-import Cartas.CartaEspecial;
-import Habilidades.AbstractHabilidad;
+import Habilidades.Habilidad;
 import Player.Player;
-
-import java.util.ArrayList;
 import java.util.List;
 
-public class AzzanH2 extends AbstractHabilidad {
+public class AzzanH2 implements Habilidad {
 
     @Override
     public void usarHabilidad(List<Player> players) {
+        Player currentPlayer = players.get(0); // Ajustar esto según la lógica del juego
 
-        
-
-
-
-
+        for (Player opponent : players) {
+            if (!opponent.equals(currentPlayer) && opponent.getEscudos() > 0) {
+                opponent.setEscudos(opponent.getEscudos() - 1);
+                currentPlayer.setEscudos(currentPlayer.getEscudos() + 1);
+                currentPlayer.getMediator().notificar("Habilidad utilizada: Tomar un escudo de un oponente y usarlo", currentPlayer);
+                break;
+            }
+        }
     }
-
-
 }

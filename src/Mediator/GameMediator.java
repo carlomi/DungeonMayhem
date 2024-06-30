@@ -1,19 +1,43 @@
 package Mediator;
 
-import Player.*;
+
+import Player.Player;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GameMediator {
-    public static void attack(Player attacker, Player defender, int damage) {
-        if (defender.hasShield()) {
-            if (damage == defender.getEscudos()){
-                defender.setEscudos(0);
-            } else if (damage > defender.getEscudos()) {
-                int remainder = damage - defender.getEscudos();
-                defender.setEscudos(0);
-                defender.recibirAtaque(remainder);
-            }
-        } else {
-            defender.recibirAtaque(damage);
-        }
+    private List<Player> players;
+    private Player controllingPlayer;
+    private boolean shieldsControlledByPlayer;
+
+    public GameMediator() {
+        this.players = new ArrayList<>();
+        this.shieldsControlledByPlayer = false;
+    }
+
+    public void addPlayer(Player player) {
+        players.add(player);
+    }
+
+    public void removePlayer(Player player) {
+        players.remove(player);
+    }
+
+    public void notificar(String mensaje, Player jugador) {
+        System.out.println(mensaje + " por " + jugador.getName());
+    }
+
+    public void setShieldsControlledByPlayer(Player player, boolean control) {
+        this.controllingPlayer = player;
+        this.shieldsControlledByPlayer = control;
+    }
+
+    public boolean isShieldsControlledByPlayer() {
+        return shieldsControlledByPlayer;
+    }
+
+    public Player getControllingPlayer() {
+        return controllingPlayer;
     }
 }
+

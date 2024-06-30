@@ -1,18 +1,22 @@
 package Habilidades.Lia;
 
-import Cartas.Carta;
-import Cartas.CartaEspecial;
-import Habilidades.AbstractHabilidad;
-import Player.Player;
 
+import Habilidades.Habilidad;
+import Player.Player;
 import java.util.List;
 
-public class LiaH1 extends AbstractHabilidad {
+public class LiaH1 implements Habilidad {
 
-    //Destruir todas las cartas especiales con escudo
     @Override
     public void usarHabilidad(List<Player> opponents) {
+        Player currentPlayer = opponents.get(0); // Ajustar esto según la lógica del juego
+
+        for (Player opponent : opponents) {
+            if (!opponent.equals(currentPlayer) && opponent.getEscudos() > 0) {
+                opponent.setEscudos(0);
+            }
+        }
+
+        currentPlayer.getMediator().notificar("Habilidad utilizada: Destruir todas las cartas de escudo", currentPlayer);
     }
 }
-
-
