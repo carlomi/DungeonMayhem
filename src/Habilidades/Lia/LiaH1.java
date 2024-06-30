@@ -9,7 +9,7 @@ public class LiaH1 implements Habilidad {
 
     @Override
     public void usarHabilidad(List<Player> opponents) {
-        Player currentPlayer = opponents.get(0); // Ajustar esto según la lógica del juego
+        Player currentPlayer = opponents.get(0);
 
         for (Player opponent : opponents) {
             if (!opponent.equals(currentPlayer) && opponent.getEscudos() > 0) {

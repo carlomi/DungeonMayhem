@@ -12,7 +12,7 @@ public class LiaH2 implements Habilidad {
     @Override
     public void usarHabilidad(List<Player> opponents) {
         Scanner scanner = new Scanner(System.in);
-        Player currentPlayer = opponents.get(0); // Ajustar esto según la lógica del juego
+        Player currentPlayer = opponents.get(0);
 
         System.out.println("Seleccione una carta de la pila de descarte para ponerla en su mano:");
         List<Carta> discardPile = currentPlayer.getDescartadas();

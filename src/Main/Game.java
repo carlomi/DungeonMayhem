@@ -23,11 +23,11 @@ public class Game {
     }
 
     public void startGame() {
-        // Lógica para iniciar el juego
+
     }
 
     public void nextTurn() {
-        // Lógica para pasar al siguiente turno
+
     }
 
     public void aplicarEscudo(Player target) {

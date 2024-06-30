@@ -10,8 +10,7 @@ public class AzzanH3 implements Habilidad {
     @Override
     public void usarHabilidad(List<Player> players) {
         Scanner scanner = new Scanner(System.in);
-        Player currentPlayer = players.get(0); // Ajustar esto según la lógica del juego
-
+        Player currentPlayer = players.get(0);
         System.out.println("Seleccione el oponente con el que desea intercambiar puntos de vida:");
         int index = 1;
         for (Player opponent : players) {

@@ -8,7 +8,7 @@ public class AzzanH2 implements Habilidad {
 
     @Override
     public void usarHabilidad(List<Player> players) {
-        Player currentPlayer = players.get(0); // Ajustar esto según la lógica del juego
+        Player currentPlayer = players.get(0);
 
         for (Player opponent : players) {
             if (!opponent.equals(currentPlayer) && opponent.getEscudos() > 0) {
