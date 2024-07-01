@@ -1,6 +1,8 @@
 package Cartas;
 import Player.*;
 
+
+
 public interface Carta {
     void atacar(Player objetivo);
     void escudo();

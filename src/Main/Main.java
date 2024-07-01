@@ -1,7 +1,5 @@
 package Main;
 
-import Player.AIPlayer;
-import Player.HumanPlayer;
 import Player.Player;
 import Player.Personaje;
 import Mediator.GameMediator;
