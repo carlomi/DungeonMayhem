@@ -10,6 +10,9 @@ public interface Carta {
     void curar();
     void jugarCarta();
     String getNombre();
+
+    int getBonusDamage();
+
     void setBonusDamage(int bonusDamage);
     int getEscudos(); // Añadir este método
     void setEscudos(int escudos); // Añadir este método

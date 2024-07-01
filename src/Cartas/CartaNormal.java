@@ -4,7 +4,7 @@ import Player.Player;
 
 public class CartaNormal implements Carta {
     private String nombre;
-    private String owner;
+    private Player owner;
     private int espadas;
     private int corazones;
     private int escudos;
@@ -13,7 +13,7 @@ public class CartaNormal implements Carta {
     private int bonusDamage; // Campo para almacenar el daño extra
 
     // Constructores
-    public CartaNormal(String nombre, String owner, int espadas, int corazones, int escudos, int rayos, int cartasExtra) {
+    public CartaNormal(String nombre, Player owner, int espadas, int corazones, int escudos, int rayos, int cartasExtra) {
         this.nombre = nombre;
         this.owner = owner;
         this.espadas = espadas;
@@ -21,40 +21,43 @@ public class CartaNormal implements Carta {
         this.escudos = escudos;
         this.rayos = rayos;
         this.cartasExtra = cartasExtra;
+        this.bonusDamage = 0; // Valor por defecto
+    }
+
+    public CartaNormal(Player owner, int espadas, int corazones, int escudos, int rayos, int cartasExtra) {
+        this.owner = owner;
+        this.espadas = espadas;
+        this.corazones = corazones;
+        this.escudos = escudos;
+        this.rayos = rayos;
+        this.cartasExtra = cartasExtra;
+        this.bonusDamage = 0; // Valor por defecto
+    }
+
+    public CartaNormal(String nombre, Player owner) {
+        this.nombre = nombre;
+        this.owner = owner;
+        this.bonusDamage = 0; // Valor por defecto
+    }
+
+    public CartaNormal(Player owner) {
+        this.owner = owner;
         this.bonusDamage = 0; // Valor por defecto
     }
 
     public CartaNormal(String owner, int espadas, int corazones, int escudos, int rayos, int cartasExtra) {
-        this.owner = owner;
-        this.espadas = espadas;
-        this.corazones = corazones;
-        this.escudos = escudos;
-        this.rayos = rayos;
-        this.cartasExtra = cartasExtra;
         this.bonusDamage = 0; // Valor por defecto
     }
 
-    public CartaNormal(String nombre, String owner) {
-        this.nombre = nombre;
-        this.owner = owner;
-        this.bonusDamage = 0; // Valor por defecto
-    }
-
-    public CartaNormal(String owner) {
-        this.owner = owner;
-        this.bonusDamage = 0; // Valor por defecto
-    }
-
-    public CartaNormal() {
-        this.bonusDamage = 0; // Valor por defecto
+    public CartaNormal(String nombre, String owner, int espadas, int corazones, int escudos, int rayos, int cartasExtra) {
     }
 
     // Getters and Setters
-    public String getOwner() {
+    public Player getOwner() {
         return owner;
     }
 
-    public void setOwner(String owner) {
+    public void setOwner(Player owner) {
         this.owner = owner;
     }
 
@@ -120,30 +123,57 @@ public class CartaNormal implements Carta {
     @Override
     public void atacar(Player objetivo) {
         // Lógica de ataque
+        int totalDamage = this.espadas + this.bonusDamage;
+        objetivo.recibirAtaque(totalDamage);
     }
 
     @Override
     public void escudo() {
         // Lógica de escudo
+        for (int i = 0; i < this.escudos; i++) {
+            this.owner.getEscudos().add(this);
+        }
     }
 
     @Override
     public void cartaExtra() {
         // Lógica de carta extra
+        for (int i = 0; i < this.cartasExtra; i++) {
+            this.owner.robar();
+        }
     }
 
     @Override
     public void rayo() {
         // Lógica de rayo
+        this.owner.puedeJugarCartaExtra(true);
     }
 
     @Override
     public void curar() {
         // Lógica de curar
+        this.owner.curarse(this.corazones);
     }
 
     @Override
     public void jugarCarta() {
         // Lógica de jugar carta
+        if (this.espadas > 0) {
+            // Asumimos que hay una referencia al jugador objetivo
+            Player objetivo = this.owner.seleccionarObjetivo(); // Necesitarás implementar esta lógica
+            this.atacar(objetivo);
+        }
+        if (this.escudos > 0) {
+            this.escudo();
+        }
+        if (this.cartasExtra > 0) {
+            this.cartaExtra();
+        }
+        if (this.rayos > 0) {
+            this.rayo();
+        }
+        if (this.corazones > 0) {
+            this.curar();
+        }
     }
 }

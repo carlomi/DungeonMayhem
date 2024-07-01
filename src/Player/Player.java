@@ -16,11 +16,18 @@ public class Player implements Observer {
     private List<Carta> jugada;
     private List<Carta> cartasActivas;
     private List<Carta> descartadas;
+    private boolean puedeJugarCartaExtra;
 
     public Player(String name) {
         this.name = name;
         this.health = 10;
         this.escudos = new ArrayList<>();
+        this.mazo = new ArrayList<>();
+        this.mano = new ArrayList<>();
+        this.jugada = new ArrayList<>();
+        this.cartasActivas = new ArrayList<>();
+        this.descartadas = new ArrayList<>();
+        this.puedeJugarCartaExtra = false;
     }
 
     public Player(String name, Personaje personaje) {
@@ -32,6 +39,7 @@ public class Player implements Observer {
         this.escudos = new ArrayList<>();
         this.cartasActivas = new ArrayList<>();
         this.descartadas = new ArrayList<>();
+        this.puedeJugarCartaExtra = false;
     }
 
     // Métodos
@@ -49,7 +57,18 @@ public class Player implements Observer {
     }
 
     public void recibirAtaque(int damage) {
-        this.health -= damage;
+        if (!escudos.isEmpty()) {
+            int damageLeft = damage;
+            while (damageLeft > 0 && !escudos.isEmpty()) {
+                Carta shield = escudos.remove(0);
+                damageLeft--;
+                // Lógica adicional si se necesita al quitar un escudo
+            }
+            this.health -= damageLeft;
+        } else {
+            this.health -= damage;
+        }
+
         if (this.health < 0) {
             this.health = 0;
         }
@@ -64,8 +83,6 @@ public class Player implements Observer {
     }
 
     public void atacar(Player objetivo) {
-        // Lógica de ataque
-        // Por ejemplo, reducir los puntos de vida del objetivo
         objetivo.recibirAtaque(1); // Asumiendo que el daño por defecto es 1
     }
 
@@ -163,7 +180,7 @@ public class Player implements Observer {
 
     public void tomarCarta(int cartasExtra) {
         for (int i = 0; i < cartasExtra; i++) {
-            mano.add(mazo.remove(0));
+            robar();
         }
     }
 
@@ -171,10 +188,20 @@ public class Player implements Observer {
         return !escudos.isEmpty();
     }
 
+    public void puedeJugarCartaExtra(boolean permitir) {
+        this.puedeJugarCartaExtra = permitir;
+    }
+
     @Override
     public void actualizar() {
         if (mano.isEmpty()) {
             tomarCarta(2);
         }
+    }
+
+    public Player seleccionarObjetivo() {
+        // Lógica para seleccionar un objetivo (otro jugador)
+        // Este método debe ser implementado para seleccionar adecuadamente un objetivo
+        return null; // Placeholder
     }
 }
