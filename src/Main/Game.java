@@ -1,6 +1,5 @@
 package Main;
 
-
 import Player.Player;
 import Mediator.GameMediator;
 import java.util.List;
@@ -23,11 +22,11 @@ public class Game {
     }
 
     public void startGame() {
-
+        mediator.startGame();
     }
 
     public void nextTurn() {
-
+        // Implementar lógica para el siguiente turno
     }
 
     public void aplicarEscudo(Player target) {

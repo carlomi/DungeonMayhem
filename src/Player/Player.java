@@ -3,7 +3,6 @@ package Player;
 import Cartas.Carta;
 import Observer.Observer;
 import Mediator.GameMediator;
-import Main.Game;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,9 +17,9 @@ public abstract class Player implements Observer {
     private List<Carta> cartasActivas;
     private List<Carta> descartadas;
     private GameMediator mediator;
-    private Game game;
+    private Object game;
 
-    public Player(String name, GameMediator mediator, Game game) {
+    public Player(String name, GameMediator mediator, Object game) {
         this.name = name;
         this.mediator = mediator;
         this.game = game;
@@ -32,7 +31,7 @@ public abstract class Player implements Observer {
         this.descartadas = new ArrayList<>();
     }
 
-    public Player(String name, Personaje personaje, GameMediator mediator, Game game) {
+    public Player(String name, Personaje personaje, GameMediator mediator, Object game) {
         this.name = name;
         this.personaje = personaje;
         this.mediator = mediator;
@@ -154,11 +153,11 @@ public abstract class Player implements Observer {
         this.mediator = mediator;
     }
 
-    public Game getGame() {
+    public Object getGame() {
         return game;
     }
 
-    public void setGame(Game game) {
+    public void setGame(Object game) {
         this.game = game;
     }
 
