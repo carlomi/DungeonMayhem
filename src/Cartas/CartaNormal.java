@@ -1,9 +1,8 @@
 package Cartas;
 
-
 import Player.Player;
 
-public class CartaNormal implements Carta{
+public class CartaNormal implements Carta {
     private String nombre;
     private String owner;
     private int espadas;
@@ -11,8 +10,9 @@ public class CartaNormal implements Carta{
     private int escudos;
     private int rayos;
     private int cartasExtra;
+    private int bonusDamage; // Campo para almacenar el daño extra
 
-    //Constructores
+    // Constructores
     public CartaNormal(String nombre, String owner, int espadas, int corazones, int escudos, int rayos, int cartasExtra) {
         this.nombre = nombre;
         this.owner = owner;
@@ -21,6 +21,7 @@ public class CartaNormal implements Carta{
         this.escudos = escudos;
         this.rayos = rayos;
         this.cartasExtra = cartasExtra;
+        this.bonusDamage = 0; // Valor por defecto
     }
 
     public CartaNormal(String owner, int espadas, int corazones, int escudos, int rayos, int cartasExtra) {
@@ -30,22 +31,25 @@ public class CartaNormal implements Carta{
         this.escudos = escudos;
         this.rayos = rayos;
         this.cartasExtra = cartasExtra;
+        this.bonusDamage = 0; // Valor por defecto
     }
 
-    public CartaNormal(String nombre, String owner){
+    public CartaNormal(String nombre, String owner) {
         this.nombre = nombre;
         this.owner = owner;
+        this.bonusDamage = 0; // Valor por defecto
     }
 
-    public CartaNormal(String owner){
+    public CartaNormal(String owner) {
         this.owner = owner;
+        this.bonusDamage = 0; // Valor por defecto
     }
 
-    public CartaNormal(){
+    public CartaNormal() {
+        this.bonusDamage = 0; // Valor por defecto
     }
 
-
-    //Getters and Setters
+    // Getters and Setters
     public String getOwner() {
         return owner;
     }
@@ -102,34 +106,44 @@ public class CartaNormal implements Carta{
         this.nombre = nombre;
     }
 
-    //Metodos
+    @Override
+    public int getBonusDamage() {
+        return bonusDamage;
+    }
+
+    @Override
+    public void setBonusDamage(int bonusDamage) {
+        this.bonusDamage = bonusDamage;
+    }
+
+    // Métodos
     @Override
     public void atacar(Player objetivo) {
-
+        // Lógica de ataque
     }
 
     @Override
     public void escudo() {
-
+        // Lógica de escudo
     }
 
     @Override
     public void cartaExtra() {
-
+        // Lógica de carta extra
     }
 
     @Override
     public void rayo() {
-
+        // Lógica de rayo
     }
 
     @Override
     public void curar() {
-
+        // Lógica de curar
     }
 
     @Override
     public void jugarCarta() {
-
+        // Lógica de jugar carta
     }
 }

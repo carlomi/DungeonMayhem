@@ -10,17 +10,17 @@ public class Player implements Observer {
     private String name;
     private Personaje personaje;
     private int health;
-    private int escudos;
+    private List<Carta> escudos;
     private List<Carta> mazo;
     private List<Carta> mano;
     private List<Carta> jugada;
     private List<Carta> cartasActivas;
     private List<Carta> descartadas;
 
-
     public Player(String name) {
         this.name = name;
         this.health = 10;
+        this.escudos = new ArrayList<>();
     }
 
     public Player(String name, Personaje personaje) {
@@ -29,13 +29,13 @@ public class Player implements Observer {
         this.health = 10;
         this.mazo = personaje.getMazo();
         this.mano = new ArrayList<>();
+        this.escudos = new ArrayList<>();
         this.cartasActivas = new ArrayList<>();
         this.descartadas = new ArrayList<>();
     }
 
-
-    //Metodos
-    public void imprimirMazo(){
+    // Métodos
+    public void imprimirMazo() {
         for (Carta c : mazo) {
             System.out.println(c.getNombre());
         }
@@ -48,22 +48,47 @@ public class Player implements Observer {
         }
     }
 
-    public void recibirAtaque(int damage){
+    public void recibirAtaque(int damage) {
         this.health -= damage;
         if (this.health < 0) {
             this.health = 0;
         }
     }
 
-    public void curarse(){
+    public void curarse() {
         this.health++;
     }
 
-    public void curarse (int corazones){
+    public void curarse(int corazones) {
         this.health += corazones;
     }
 
-    //Getters and Setters
+    public void atacar(Player objetivo) {
+        // Lógica de ataque
+        // Por ejemplo, reducir los puntos de vida del objetivo
+        objetivo.recibirAtaque(1); // Asumiendo que el daño por defecto es 1
+    }
+
+    public Carta robar() {
+        if (!mazo.isEmpty()) {
+            Carta carta = mazo.remove(0);
+            mano.add(carta);
+            return carta;
+        }
+        return null;
+    }
+
+    public void robarCarta(Carta carta) {
+        if (carta != null) {
+            mano.add(carta);
+        }
+    }
+
+    public void descartarMano() {
+        mano.clear();
+    }
+
+    // Getters and Setters
     public String getName() {
         return name;
     }
@@ -128,26 +153,22 @@ public class Player implements Observer {
         this.descartadas = descartadas;
     }
 
-    public int getEscudos() {
+    public List<Carta> getEscudos() {
         return escudos;
     }
 
-    public void setEscudos(int escudos) {
+    public void setEscudos(List<Carta> escudos) {
         this.escudos = escudos;
     }
 
-    //METODOS NUEVOS
     public void tomarCarta(int cartasExtra) {
         for (int i = 0; i < cartasExtra; i++) {
-            mano.add(mazo.getFirst());
-            mazo.remove(mazo.getFirst());
+            mano.add(mazo.remove(0));
         }
     }
 
-    public boolean hasShield (){
-        if (escudos > 0)
-            return true;
-        else return false;
+    public boolean hasShield() {
+        return !escudos.isEmpty();
     }
 
     @Override

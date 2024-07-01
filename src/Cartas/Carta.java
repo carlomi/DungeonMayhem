@@ -1,4 +1,5 @@
 package Cartas;
+
 import Player.*;
 
 public interface Carta {
@@ -9,4 +10,7 @@ public interface Carta {
     void curar();
     void jugarCarta();
     String getNombre();
+    void setBonusDamage(int bonusDamage);
+    int getEscudos(); // Añadir este método
+    void setEscudos(int escudos); // Añadir este método
 }
