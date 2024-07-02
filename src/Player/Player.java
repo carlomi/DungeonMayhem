@@ -81,6 +81,14 @@ public abstract class Player implements Observer {
         this.name = name;
     }
 
+    public Personaje getPersonaje() {
+        return personaje;
+    }
+
+    public void setPersonaje(Personaje personaje) {
+        this.personaje = personaje;
+    }
+
     public int getHealth() {
         return health;
     }
@@ -89,12 +97,12 @@ public abstract class Player implements Observer {
         this.health = health;
     }
 
-    public Personaje getPersonaje() {
-        return personaje;
+    public int getEscudos() {
+        return escudos;
     }
 
-    public void setPersonaje(Personaje personaje) {
-        this.personaje = personaje;
+    public void setEscudos(int escudos) {
+        this.escudos = escudos;
     }
 
     public List<Carta> getMazo() {
@@ -113,14 +121,6 @@ public abstract class Player implements Observer {
         this.mano = mano;
     }
 
-    public List<Carta> getJugada() {
-        return jugada;
-    }
-
-    public void setJugada(List<Carta> jugada) {
-        this.jugada = jugada;
-    }
-
     public List<Carta> getCartasActivas() {
         return cartasActivas;
     }
@@ -135,14 +135,6 @@ public abstract class Player implements Observer {
 
     public void setDescartadas(List<Carta> descartadas) {
         this.descartadas = descartadas;
-    }
-
-    public int getEscudos() {
-        return escudos;
-    }
-
-    public void setEscudos(int escudos) {
-        this.escudos = escudos;
     }
 
     public GameMediator getMediator() {

@@ -16,11 +16,13 @@ public class GameMediator {
     public GameMediator(List<Player> players) {
         this.players = players;
         this.scanner = new Scanner(System.in);
-        this.controllingPlayer = null; // Inicialmente no hay jugador que controle los escudos
+        this.controllingPlayer = null; // Inicialmente no hay un jugador que controle los escudos
     }
 
     public GameMediator() {
-
+        this.players = new ArrayList<>();
+        this.scanner = new Scanner(System.in);
+        this.controllingPlayer = null;
     }
 
     public boolean isShieldsControlledByPlayer() {

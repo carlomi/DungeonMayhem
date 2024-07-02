@@ -2,6 +2,7 @@ package Player;
 
 import Cartas.Carta;
 import Mediator.GameMediator;
+import Main.Game;
 import java.util.List;
 import java.util.Random;
 
@@ -44,7 +45,7 @@ public class CPUPlayer extends Player {
         Random rand = new Random();
         Player target = opponents.get(rand.nextInt(opponents.size()));
         System.out.println(getName() + " ataca a " + target.getName() + "!");
-        //  código de ataque aquí (por ejemplo, reducir la salud del objetivo)
+        // código de ataque aquí (por ejemplo, reducir la salud del objetivo)
         int damage = rand.nextInt(5) + 1; // Ejemplo de cálculo de daño
         target.recibirAtaque(damage);
         System.out.println(target.getName() + " recibe " + damage + " de daño.");
@@ -53,7 +54,7 @@ public class CPUPlayer extends Player {
     private void heal() {
         // la lógica de curación
         System.out.println(getName() + " se cura!");
-        //código de curación aquí (por ejemplo, aumentar la salud)
+        // código de curación aquí (por ejemplo, aumentar la salud)
         int healAmount = new Random().nextInt(5) + 1; // Ejemplo de cálculo de curación
         setHealth(getHealth() + healAmount);
         System.out.println(getName() + " se cura " + healAmount + " de salud.");
@@ -99,4 +100,5 @@ public class CPUPlayer extends Player {
         System.out.println(getName() + " ha elegido a " + elegido.getNombre() + ".");
     }
 }
+
 

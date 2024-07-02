@@ -1,5 +1,7 @@
 package Main;
 
+import Player.CPUPlayer;
+import Player.HumanPlayer;
 import Player.Player;
 import Player.Personaje;
 import Mediator.GameMediator;
@@ -13,7 +15,7 @@ public class Main {
 
     public static void main(String[] args) {
         personajes = Personaje.generarPersonajes();
-        GameMediator mediator = new GameMediator();
+        GameMediator mediator = new GameMediator(players);
         Game game = new Game(players);
 
         crearJugador(personajes, mediator, game);
@@ -53,15 +55,15 @@ public class Main {
         nombre = sc.nextLine();
 
         personaje = seleccionarPersonaje(personajes);
-        personaje.setEnUso(true); // Marcar el personaje como en uso
+        personaje.setEnUso(true);
         players.add(new HumanPlayer(nombre, personaje, mediator, game));
     }
 
     public static void crearJugadoresAI(List<Personaje> personajes, GameMediator mediator, Game game) {
         for (int i = 1; i <= 3; i++) {
             Personaje personaje = seleccionarPersonaje(personajes);
-            personaje.setEnUso(true); // Marcar el personaje como en uso
-            players.add(new AIPlayer("AI Player " + i, personaje, mediator, game));
+            personaje.setEnUso(true);
+            players.add(new CPUPlayer("AI Player " + i, personaje, mediator, game));
         }
     }
 
