@@ -1,6 +1,15 @@
 package Cartas;
 
+
 import Player.Player;
+
+
+import Mediator.GameMediator;
+import Player.*;
+
+import java.util.List;
+import java.util.Scanner;
+
 
 public class CartaNormal implements Carta {
     private String nombre;
@@ -110,6 +119,7 @@ public class CartaNormal implements Carta {
     }
 
     @Override
+
     public int getBonusDamage() {
         return bonusDamage;
     }
@@ -125,9 +135,17 @@ public class CartaNormal implements Carta {
         // Lógica de ataque
         int totalDamage = this.espadas + this.bonusDamage;
         objetivo.recibirAtaque(totalDamage);
+
+    public void ataqueCPU(List<Players> oponentes) {
+        int index = (int)(Math.random() * oponentes.size());
+        Players randomElement = oponentes.get(index);
+        GameMediator.attack(randomElement,getEspadas());
+
     }
 
+    //Metodos
     @Override
+
     public void escudo() {
         // Lógica de escudo
         for (int i = 0; i < this.escudos; i++) {
@@ -141,7 +159,20 @@ public class CartaNormal implements Carta {
         for (int i = 0; i < this.cartasExtra; i++) {
             this.owner.robar();
         }
+
+    public void atacar(List<Players> oponentes) {
+        System.out.println("Elige el oponente a atacar:");
+        int i = 0;
+        for (Players p : oponentes) {
+            System.out.println((i+1) + ". " + p.getName());
+            i++;
+        }
+
+        Scanner sc = new Scanner(System.in);
+
+        GameMediator.attack(oponentes.get(sc.nextInt() - 1),getEspadas());>>>>>>> main
     }
+
 
     @Override
     public void rayo() {
@@ -154,6 +185,7 @@ public class CartaNormal implements Carta {
         // Lógica de curar
         this.owner.curarse(this.corazones);
     }
+
 
     @Override
     public void jugarCarta() {
@@ -176,4 +208,5 @@ public class CartaNormal implements Carta {
             this.curar();
         }
     }
+
 }

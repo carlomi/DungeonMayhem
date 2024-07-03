@@ -1,12 +1,18 @@
 package Habilidades.MinscAndBoo;
 
+
 import Player.Player;
 import Habilidades.AbstractHabilidad;
+
+import Habilidades.AbstractHabilidad;
+import Player.Players;
+
 
 import java.util.List;
 
 public class MinscH2 extends AbstractHabilidad {
     @Override
+
     public void usarHabilidad(List<Player> jugadores) {
         int numJugadores = jugadores.size();
 
@@ -15,6 +21,9 @@ public class MinscH2 extends AbstractHabilidad {
         for (int i = 0; i < numJugadores; i++) {
             puntosVida[i] = jugadores.get(i).getHealth();
         }
+
+    public void usarHabilidad(List<Players> opponents) {
+
 
         // Pasar los puntos de vida al jugador a la derecha
         for (int i = 0; i < numJugadores; i++) {

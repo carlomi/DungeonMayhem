@@ -2,12 +2,13 @@ package Habilidades.MinscAndBoo;
 
 import Cartas.Carta;
 import Habilidades.AbstractHabilidad;
-import Player.Player;
+import Player.Players;
 
 import java.util.List;
 
 public class MinscH1 extends AbstractHabilidad {
     @Override
+
     public void usarHabilidad(List<Player> oponentes) {
         // Asumir que el jugador actual es el primero en la lista
         Player jugadorActual = oponentes.get(0);
@@ -18,5 +19,8 @@ public class MinscH1 extends AbstractHabilidad {
             Carta cartaRobada = oponente.robar();
             jugadorActual.robarCarta(cartaRobada);
         }
+
+    public void usarHabilidad(List<Players> opponents) {
+
     }
 }
