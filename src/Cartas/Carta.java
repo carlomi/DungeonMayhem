@@ -1,9 +1,25 @@
 package Cartas;
+
 import Player.*;
 
 import java.util.List;
 
 public interface Carta {
+ Feature/jaime
+    void atacar(Player objetivo);
+    void escudo();
+    void cartaExtra();
+    void rayo();
+    void curar();
+    void jugarCarta();
+    String getNombre();
+
+    int getBonusDamage();
+
+    void setBonusDamage(int bonusDamage);
+    int getEscudos(); // Añadir este método
+    void setEscudos(int escudos); // Añadir este método
+  
     public void atacar(List<Players> oponentes);
     public void rayo();
     public void curar();
@@ -22,4 +38,5 @@ public interface Carta {
     public String getNombre();
     public void setNombre(String nombre);
     public void ataqueCPU(List<Players> oponentes);
+  
 }

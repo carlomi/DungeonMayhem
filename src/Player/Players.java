@@ -29,6 +29,12 @@ public interface Players {
     public void tomarCarta();
     public void tomarCarta(int cartasExtra);
     public boolean hasShield();
+
+
+    int getEscudos();
+
+    void setEscudos(int i);
+
     public void jugarCarta(Carta carta);
     public void setOponentes(List<Players> players);
     public List<Players> getOponentes();
@@ -36,4 +42,5 @@ public interface Players {
     public void agregarTurnos(int turnos);
     public void setTurnos(int turnos);
     public void takeTurn();
+
 }

@@ -1,6 +1,7 @@
 package Mediator;
 
-import Player.*;
+
+import Player.Players;
 
 public class GameMediator {
     public static void attack(Players defender, int damage) {
@@ -15,6 +16,9 @@ public class GameMediator {
         } else {
             defender.recibirAtaque(damage);
         }
+    }
+
+
     }
 
 }

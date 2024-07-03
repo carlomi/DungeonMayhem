@@ -1,23 +1,28 @@
 package Cartas;
 
 
+import Player.Player;
+
+
 import Mediator.GameMediator;
 import Player.*;
 
 import java.util.List;
 import java.util.Scanner;
 
-public class CartaNormal implements Carta{
+
+public class CartaNormal implements Carta {
     private String nombre;
-    private String owner;
+    private Player owner;
     private int espadas;
     private int corazones;
     private int escudos;
     private int rayos;
     private int cartasExtra;
+    private int bonusDamage; // Campo para almacenar el daño extra
 
-    //Constructores
-    public CartaNormal(String nombre, String owner, int espadas, int corazones, int escudos, int rayos, int cartasExtra) {
+    // Constructores
+    public CartaNormal(String nombre, Player owner, int espadas, int corazones, int escudos, int rayos, int cartasExtra) {
         this.nombre = nombre;
         this.owner = owner;
         this.espadas = espadas;
@@ -25,36 +30,43 @@ public class CartaNormal implements Carta{
         this.escudos = escudos;
         this.rayos = rayos;
         this.cartasExtra = cartasExtra;
+        this.bonusDamage = 0; // Valor por defecto
+    }
+
+    public CartaNormal(Player owner, int espadas, int corazones, int escudos, int rayos, int cartasExtra) {
+        this.owner = owner;
+        this.espadas = espadas;
+        this.corazones = corazones;
+        this.escudos = escudos;
+        this.rayos = rayos;
+        this.cartasExtra = cartasExtra;
+        this.bonusDamage = 0; // Valor por defecto
+    }
+
+    public CartaNormal(String nombre, Player owner) {
+        this.nombre = nombre;
+        this.owner = owner;
+        this.bonusDamage = 0; // Valor por defecto
+    }
+
+    public CartaNormal(Player owner) {
+        this.owner = owner;
+        this.bonusDamage = 0; // Valor por defecto
     }
 
     public CartaNormal(String owner, int espadas, int corazones, int escudos, int rayos, int cartasExtra) {
-        this.owner = owner;
-        this.espadas = espadas;
-        this.corazones = corazones;
-        this.escudos = escudos;
-        this.rayos = rayos;
-        this.cartasExtra = cartasExtra;
+        this.bonusDamage = 0; // Valor por defecto
     }
 
-    public CartaNormal(String nombre, String owner){
-        this.nombre = nombre;
-        this.owner = owner;
+    public CartaNormal(String nombre, String owner, int espadas, int corazones, int escudos, int rayos, int cartasExtra) {
     }
 
-    public CartaNormal(String owner){
-        this.owner = owner;
-    }
-
-    public CartaNormal(){
-    }
-
-
-    //Getters and Setters
-    public String getOwner() {
+    // Getters and Setters
+    public Player getOwner() {
         return owner;
     }
 
-    public void setOwner(String owner) {
+    public void setOwner(Player owner) {
         this.owner = owner;
     }
 
@@ -107,14 +119,47 @@ public class CartaNormal implements Carta{
     }
 
     @Override
+
+    public int getBonusDamage() {
+        return bonusDamage;
+    }
+
+    @Override
+    public void setBonusDamage(int bonusDamage) {
+        this.bonusDamage = bonusDamage;
+    }
+
+    // Métodos
+    @Override
+    public void atacar(Player objetivo) {
+        // Lógica de ataque
+        int totalDamage = this.espadas + this.bonusDamage;
+        objetivo.recibirAtaque(totalDamage);
+
     public void ataqueCPU(List<Players> oponentes) {
         int index = (int)(Math.random() * oponentes.size());
         Players randomElement = oponentes.get(index);
         GameMediator.attack(randomElement,getEspadas());
+
     }
 
     //Metodos
     @Override
+
+    public void escudo() {
+        // Lógica de escudo
+        for (int i = 0; i < this.escudos; i++) {
+            this.owner.getEscudos().add(this);
+        }
+    }
+
+    @Override
+    public void cartaExtra() {
+        // Lógica de carta extra
+        for (int i = 0; i < this.cartasExtra; i++) {
+            this.owner.robar();
+        }
+
     public void atacar(List<Players> oponentes) {
         System.out.println("Elige el oponente a atacar:");
         int i = 0;
@@ -125,17 +170,43 @@ public class CartaNormal implements Carta{
 
         Scanner sc = new Scanner(System.in);
 
-        GameMediator.attack(oponentes.get(sc.nextInt() - 1),getEspadas());
+        GameMediator.attack(oponentes.get(sc.nextInt() - 1),getEspadas());>>>>>>> main
     }
 
 
     @Override
     public void rayo() {
-
+        // Lógica de rayo
+        this.owner.puedeJugarCartaExtra(true);
     }
 
     @Override
     public void curar() {
-
+        // Lógica de curar
+        this.owner.curarse(this.corazones);
     }
+
+
+    @Override
+    public void jugarCarta() {
+        // Lógica de jugar carta
+        if (this.espadas > 0) {
+            // Asumimos que hay una referencia al jugador objetivo
+            Player objetivo = this.owner.seleccionarObjetivo(); // Necesitarás implementar esta lógica
+            this.atacar(objetivo);
+        }
+        if (this.escudos > 0) {
+            this.escudo();
+        }
+        if (this.cartasExtra > 0) {
+            this.cartaExtra();
+        }
+        if (this.rayos > 0) {
+            this.rayo();
+        }
+        if (this.corazones > 0) {
+            this.curar();
+        }
+    }
+
 }
