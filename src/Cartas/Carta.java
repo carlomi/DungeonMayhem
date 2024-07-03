@@ -21,4 +21,5 @@ public interface Carta {
     public void setCartasExtra(int cartasExtra);
     public String getNombre();
     public void setNombre(String nombre);
+    public void ataqueCPU(List<Players> oponentes);
 }

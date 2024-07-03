@@ -1,3 +1,4 @@
+import Cartas.Carta;
 import Player.*;
 import Player.Player;
 import Player.Personaje;
@@ -81,12 +82,10 @@ public class Tablero {
         while (players.get(0).getHealth() > 0 && players.size() > 1)
         {
             for (Players p : players ) {
+                p.setTurnos(1);
                 p.tomarCarta();
-                // Selecciones una carta de la mano
-                // p.jugarCarta(seleccion)
+                p.takeTurn();
+                }
             }
         }
     }
-
-
-}

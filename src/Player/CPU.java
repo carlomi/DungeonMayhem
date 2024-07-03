@@ -173,11 +173,32 @@ public class CPU implements Players{
     }
 
     @Override
+    public int getTurnos() {
+        return turnos;
+    }
+
+    @Override
+    public void agregarTurnos(int turnos) {
+        this.turnos += turnos;
+    }
+
+    @Override
+    public void setTurnos(int turnos) {
+        this.turnos = turnos;
+    }
+
+    public void actualizar() {
+        if (mano.isEmpty()) {
+            tomarCarta(2);
+        }
+    }
+
+    @Override
     public void jugarCarta(Carta carta) {
         int i = 0;
 
         if(carta.getEspadas() > 0){
-            carta.atacar(oponentes);
+            carta.ataqueCPU(oponentes);
         }
         if (carta.getEscudos() > 0){
             escudos += carta.getEscudos();
@@ -191,12 +212,18 @@ public class CPU implements Players{
         if (carta.getCorazones() > 0){
             curarse(carta.getCorazones());
         }
+        turnos--;
     }
 
-    public void TakeTurn(){
+    public void takeTurn(){
         int index = (int)(Math.random() * mano.size());
         Carta randomElement = mano.get(index);
+
+        mano.remove(randomElement);
+        descartadas.add(randomElement);
         jugarCarta(randomElement);
+        actualizar();
+        setTurnos(turnos--);
     }
 
 

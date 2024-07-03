@@ -8,6 +8,7 @@ import Observer.Observer;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Scanner;
 
 public class Player implements Observer, Players {
     private String name;
@@ -145,6 +146,19 @@ public class Player implements Observer, Players {
         this.escudos = escudos;
     }
 
+    public int getTurnos (){
+        return turnos;
+    }
+
+    @Override
+    public void agregarTurnos(int turnos) {
+        this.turnos += turnos;
+    }
+
+    public void setTurnos(int turnos) {
+        this.turnos = turnos;
+    }
+
     //METODOS NUEVOS
     @Override
     public void tomarCarta(){
@@ -188,6 +202,7 @@ public class Player implements Observer, Players {
         if (carta.getClass() == CartaEspecial.class){
             ((CartaEspecial) carta).getHabilidad().usarHabilidad(oponentes);
         }
+        turnos--;
     }
 
     @Override
@@ -198,5 +213,30 @@ public class Player implements Observer, Players {
     }
      public void mezclarMazo(){
          Collections.shuffle(this.mazo);
+     }
+
+     public void takeTurn(){
+        int i = 0;
+        Carta cartaElegida;
+        Scanner sc = new Scanner(System.in);
+         while (turnos > 0) {
+             System.out.println("Elige una carta: ");
+             for (Carta c : mano) {
+                 System.out.println((i+1)+ ". " + c.getNombre());
+                 System.out.println("Espadas: " + c.getEspadas());
+                 System.out.println("Escudos: " + c.getEscudos());
+                 System.out.println("Rayos: " + c.getRayos());
+                 System.out.println("Corazones: " + c.getCorazones());
+                 System.out.println("Cartas Extra: " + c.getCartasExtra());
+                 i++;
+             }
+             cartaElegida = mano.get(sc.nextInt() - 1);
+             mano.remove(cartaElegida);
+             descartadas.add(cartaElegida);
+
+             jugarCarta(cartaElegida);
+             actualizar();
+             setTurnos(turnos--);
+         }
      }
 }

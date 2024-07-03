@@ -106,6 +106,13 @@ public class CartaNormal implements Carta{
         this.nombre = nombre;
     }
 
+    @Override
+    public void ataqueCPU(List<Players> oponentes) {
+        int index = (int)(Math.random() * oponentes.size());
+        Players randomElement = oponentes.get(index);
+        GameMediator.attack(randomElement,getEspadas());
+    }
+
     //Metodos
     @Override
     public void atacar(List<Players> oponentes) {
