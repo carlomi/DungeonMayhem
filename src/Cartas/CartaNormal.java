@@ -1,7 +1,11 @@
 package Cartas;
 
 
-import Player.Player;
+import Mediator.GameMediator;
+import Player.*;
+
+import java.util.List;
+import java.util.Scanner;
 
 public class CartaNormal implements Carta{
     private String nombre;
@@ -104,19 +108,19 @@ public class CartaNormal implements Carta{
 
     //Metodos
     @Override
-    public void atacar(Player objetivo) {
+    public void atacar(List<Players> oponentes) {
+        System.out.println("Elige el oponente a atacar:");
+        int i = 0;
+        for (Players p : oponentes) {
+            System.out.println((i+1) + ". " + p.getName());
+            i++;
+        }
 
+        Scanner sc = new Scanner(System.in);
+
+        GameMediator.attack(oponentes.get(sc.nextInt() - 1),getEspadas());
     }
 
-    @Override
-    public void escudo() {
-
-    }
-
-    @Override
-    public void cartaExtra() {
-
-    }
 
     @Override
     public void rayo() {
@@ -125,11 +129,6 @@ public class CartaNormal implements Carta{
 
     @Override
     public void curar() {
-
-    }
-
-    @Override
-    public void jugarCarta() {
 
     }
 }
