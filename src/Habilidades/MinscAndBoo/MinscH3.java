@@ -1,18 +1,28 @@
 package Habilidades.MinscAndBoo;
 
 import Player.Player;
+import Player.Players;
 import Habilidades.AbstractHabilidad;
+import Mediator.GameMediator;
 
 import java.util.List;
 
 public class MinscH3 extends AbstractHabilidad {
     @Override
     public void usarHabilidad(List<Player> jugadores) {
-        // Asumir que el jugador actual es el primero en la lista
-        Player jugadorActual = jugadores.get(0);
+        if (jugadores.size() < 2) return; // Asegurarse de que haya al menos un defensor
 
-        // Aumentar el daño de las cartas de escudo en 1 por este turno
-        // Suponiendo que tienes un método para esto, que puede ser customizado
-        jugadorActual.getEscudos().forEach(carta -> carta.setBonusDamage(1));
+        Player atacante = jugadores.get(0); // Asumimos que el primer jugador en la lista es el que usa la habilidad
+
+        Players defensor = (Players) jugadores.get(1); // sera el jugador que le sigue
+
+        // se cura el usuario
+        atacante.curarse(1); // llamamos el metoto de curar de la clase abstracta
+
+        // definimos el valor del dano que causara el ataque
+        int damage = 2; // quitara 2 puntos de vida al jugador que le sigue
+
+        // Usar el mediador para atacar al defensor
+        GameMediator.attack(defensor, damage);
     }
 }

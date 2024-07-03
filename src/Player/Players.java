@@ -9,4 +9,8 @@ public interface Players {
     public void tomarCarta();
     public void tomarCarta(int cartasExtra);
     public boolean hasShield();
+
+    int getEscudos();
+
+    void setEscudos(int i);
 }
